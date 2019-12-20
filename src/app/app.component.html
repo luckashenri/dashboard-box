@@ -1,0 +1,37 @@
+<div id="app">
+  <div class="w-100 h-100" fxLayout="row" fxLayoutAlign="center center"  >
+    
+    <div class="box" [ngClass]="{ warning: boxObj.hasEventNotViewed }" fxLayout="column" fxLayoutAlign="space-between center">
+      <div class="box-header" fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="material-icons"><svg width="24px" viewBox="0 0 512 512" [innerHTML]="decodeIcon(boxObj.symbol)"></svg></div>
+        <div class="px-2 truncate-text uppercase">{{boxObj.name}}</div>
+        <div class="material-icons">info</div>
+      </div>
+
+      <div class="box-body" fxLayout="column" fxLayoutAlign="center center">
+        <div id="circle"></div>
+        <div id="abbreviation">{{boxObj.abbreviation}}</div>
+        <div fxLayout="column" fxLayoutAlign="center start">
+          <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let item of boxObj.measurements">
+            <div class="material-icons pr-2">{{item.name}}</div>{{item.value}}
+          </div>
+        </div>
+      </div>
+
+      <div class="box-footer" fxLayout="row" fxLayoutAlign="space-between center">
+
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <div *ngIf="boxObj.status === 'on'" fxLayout="row" fxLayoutAlign="center center"><div class="material-icons on pr-2">lens</div><span class="uppercase">ligado</span></div>
+          <div *ngIf="boxObj.status === 'off'" fxLayout="row" fxLayoutAlign="center center"><div class="material-icons off pr-2">lens</div><span class="uppercase">desligado</span></div>
+          <div *ngIf="boxObj.status === 'standby'" fxLayout="row" fxLayoutAlign="center center"><div class="material-icons standby pr-2">lens</div><span class="uppercase">stand by</span></div>
+        </div>
+
+        <div *ngIf="boxObj.situation; then AllOk else NotOk"></div>
+        <ng-template #AllOk><div class="material-icons on">done</div></ng-template>
+        <ng-template #NotOk><div class="material-icons off">warning</div></ng-template>
+
+      </div>
+    </div>
+
+  </div>
+</div>
